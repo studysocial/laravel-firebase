@@ -25,9 +25,13 @@ class LaravelFirebaseServiceProvider extends ServiceProvider {
 		$self = $this;
 
 		// Register Eloquent Hooks
+        /*
+         * We won't use sync
+         *
 		Event::listen('eloquent.created: *', function($obj) use ($self) { return $self->sync($obj); }, 10);
 		Event::listen('eloquent.updated: *', function($obj) use ($self) { return $self->sync($obj); }, 10);
 		Event::listen('eloquent.deleted: *', function($obj) use ($self) { return $self->delete($obj); }, 10);
+        */
 	}
 
 
@@ -78,6 +82,8 @@ class LaravelFirebaseServiceProvider extends ServiceProvider {
 	 */
 	private function sync($obj) {
 
+	    throw new \Exception('Firebase::sync is not in use.');
+
 		$sync = (!empty(config('firebase')))
 				 ? config('firebase.sync')
 				 : config('database.connections.firebase.sync');	// `sync` by Default (config)?
@@ -110,6 +116,8 @@ class LaravelFirebaseServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	private function delete($obj) {
+
+        throw new \Exception('Firebase::delete is not in use.');
 
 		$sync = (!empty(config('firebase')))
 				 ? config('firebase.sync')
